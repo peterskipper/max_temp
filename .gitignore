@@ -1,0 +1,5 @@
+setup.sh
+env
+*.py[cod]
+*.png
+*.db
