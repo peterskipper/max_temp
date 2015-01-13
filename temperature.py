@@ -21,6 +21,7 @@ NOW = datetime.datetime.now()
 
 START_TIME = NOW - datetime.timedelta(days=30)
 
+
 def create_db():
     """Create database to store max_temp values"""
 
@@ -28,8 +29,8 @@ def create_db():
     curs = conn.cursor()
     curs.execute('DROP TABLE if EXISTS max_temp;')
     curs.execute('CREATE TABLE max_temp (id INTEGER PRIMARY KEY AUTOINCREMENT,'
-                 ' time TEXT, Los_Angeles NUMERIC, Austin NUMERIC, Denver NUMERIC,'
-                 ' New_Orleans NUMERIC, New_York NUMERIC)')
+                 ' time TEXT, Los_Angeles NUMERIC, Austin NUMERIC, Denver '
+                 'NUMERIC, New_Orleans NUMERIC, New_York NUMERIC)')
     query_time = START_TIME
     while query_time <= NOW:
         curs.execute('INSERT INTO max_temp (time) VALUES (?)',
@@ -37,6 +38,7 @@ def create_db():
         query_time += datetime.timedelta(days=1)
     conn.commit()
     conn.close()
+
 
 def get_weather():
     """Make API calls to forecast.io for max_temp"""
@@ -71,6 +73,7 @@ def get_weather():
     conn.commit()
     conn.close()
 
+
 def analyze_weather():
     """ Queries Database and summarizes info about Max Temp """
     conn = sqlite3.connect('weather.db')
@@ -99,6 +102,7 @@ def analyze_weather():
     plt.savefig('temp_scatter.png')
     print "\nSee scatterplots of the max temps in 'temp_scatter.png'"
     plt.close()
+
 
 def analyze_diff():
     """Analyzes the Changes in Max Temp by City"""
